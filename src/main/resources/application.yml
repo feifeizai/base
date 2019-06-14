@@ -1,0 +1,73 @@
+spring:
+  profiles:
+    active: hikari
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL5Dialect
+      ddl-auto: update
+
+mybatis:
+  # 指定全局配置文件位置, 文件在resources文件下
+  config-location: classpath:mybatis/mybatis-config.xml
+  # 指定sql映射文件位置, 文件在resources文件下
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.xhf.demo.entity
+
+---
+spring:
+  profiles: hikari
+  datasource:
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    jdbc-url: jdbc:mysql://localhost:3306/ssmdemo?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+      auto-commit: true
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      maximum-pool-size: 15
+      minimum-idle: 5
+      pool-name: DatebookHikariCP
+
+
+
+---
+spring:
+  profiles: druid
+  datasource:
+    url: jdbc:mysql://localhost:3306/ssmdemo?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:oracle:thin:@d0gccob.dbdev.paic.com.cn:1526/dogccob
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+#    filters: stat,wall,log4j
+    # 初始化大小，最小，最大
+    initialSize: 5
+    minIdle: 1
+    maxActive: 50
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testOnBorrow: false
+    testOnReturn: false
+    testWhileIdle: true
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: false
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+
+
+
