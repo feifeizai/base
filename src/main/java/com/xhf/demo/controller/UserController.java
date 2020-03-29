@@ -1,54 +1,31 @@
 package com.xhf.demo.controller;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import com.xhf.demo.entity.User;
 import com.xhf.demo.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Optional;
-
+@Slf4j
+@Api(value = "用户管理接口")
 @RestController
 @RequestMapping("/user")
-public class UserController extends BaseController<User,Integer>{
+public class UserController extends BaseController<User, Integer> {
 
-    /*@Autowired
-    UserService userService;
-
-    @RequestMapping("/find")
-    public List<User> find(){
-        return userService.findAll();
-    }
-
-    @PostMapping("/findType")
-    public List<User> find(@RequestBody User user){
-        return userService.findAll(user);
-    }*/
     @Autowired
     UserService userService;
 
-    Logger logger = LoggerFactory.getLogger(UserController.class);
-
-    @GetMapping("/find/{id}")
-    public User find(@PathVariable("id") Integer id){
-        logger.info("查询方法，id："+id);
-        Optional<User> optional = baseService.findById(id);
-        if(optional.isPresent()){
-            return optional.get();
-        }
-        return null;
-    }
-
     /**
      * 使用mybatis
+     *
      * @param id
      * @return
      */
     @GetMapping("/getUserById")
-    public User find11(Integer id){
+    public User find11(Integer id) {
         return userService.xxx(id);
     }
 

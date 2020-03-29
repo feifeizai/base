@@ -1,5 +1,6 @@
 package com.xhf.demo.service;
 
+import com.xhf.demo.common.PageRequestInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -60,9 +61,9 @@ public interface BaseService <T,ID extends Serializable>{
 
     List<T> findAll(T t);
 
-    Page<T> findAll(T t, Integer page, Integer size);
+    Page<T> findAll(T t, PageRequestInfo pageRequest);
 
-    Page<T> findAll(Integer page, Integer size);
+    Page<T> findAll(PageRequestInfo pageRequest);
 
     List<T> findAll(T t, Sort sort);
 

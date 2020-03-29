@@ -1,5 +1,6 @@
 package com.xhf.demo.service;
 
+import com.xhf.demo.common.PageRequestInfo;
 import com.xhf.demo.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -96,7 +97,7 @@ public class UserServiceTest {
 
     @Test
     public void findAll4(){
-        Page<User> all = userService.findAll(0, 3);
+        Page<User> all = userService.findAll(PageRequestInfo.builder().page(1).size(20).build());
         System.out.println(all.getContent().toString());
     }
 
