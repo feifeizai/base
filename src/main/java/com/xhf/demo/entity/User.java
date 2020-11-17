@@ -1,6 +1,7 @@
 package com.xhf.demo.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
@@ -9,11 +10,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
+@Builder
 @DynamicInsert
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="s_user")
+@Table(name="t_user")
 public class User implements Serializable{
 
     @Id
@@ -28,7 +30,7 @@ public class User implements Serializable{
     private String nickname;
     @Column(name = "checkcode")
     private String checkcode;
-    @Column(name = "phonecheckcode")
+    @Column(name = "phone_check_code")
     private String phonecheckcode;
 
 

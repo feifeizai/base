@@ -10,14 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.Assert.*;
 
 
 @RunWith(SpringRunner.class)
@@ -36,29 +32,29 @@ public class UserServiceTest {
         user.setNickname("小八");
 
         userService.save(user);
-        int i=1/0;
+        int i = 1 / 0;
 //        throw new Exception();
     }
 
     @Test
     public void update() throws Exception {
 
-        Optional<User> optional = userService.findById(8);
-        if(optional.isPresent()){
+        Optional<User> optional = userService.findById(1);
+        if (optional.isPresent()) {
             User user = optional.get();
-            user.setCheckcode("1234");
-            userService.save(user);
+            user.setCheckcode("333");
+            userService.update(user);
         }
     }
 
     @Test
-    public void deleteById(){
+    public void deleteById() {
         //会先查找，然后删除
         userService.deleteById(8);
     }
 
     @Test
-    public void delete(){
+    public void delete() {
         User user = new User();
         user.setId(9);
         //user.setUsername("赵六");
@@ -68,7 +64,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void findAll1(){
+    public void findAll1() {
         User user = new User();
         user.setNickname("小八");
         List<User> all = userService.findAll(user);
@@ -78,7 +74,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void findAll2(){
+    public void findAll2() {
         List<Integer> list = new ArrayList<>();
         list.add(19);
         list.add(20);
@@ -88,31 +84,31 @@ public class UserServiceTest {
     }
 
     @Test
-    public void findAll3(){
+    public void findAll3() {
         User user = new User();
         user.setNickname("小八");
-        List<User> all = userService.findAll(user,new Sort(Sort.Direction.ASC,"id"));
+        List<User> all = userService.findAll(user, Sort.by(Sort.Direction.ASC, "id"));
         System.out.println(all.toString());
     }
 
     @Test
-    public void findAll4(){
+    public void findAll4() {
         Page<User> all = userService.findAll(PageRequestInfo.builder().page(1).size(20).build());
         System.out.println(all.getContent().toString());
     }
 
     @Test
-    public void findOne(){
+    public void findOne() {
         User user = new User();
         user.setNickname("小七");
         Optional one = userService.findOne(user);
-        if(one.isPresent()){
+        if (one.isPresent()) {
             System.out.println(one.get().toString());
         }
     }
 
     @Test
-    public void count(){
+    public void count() {
         User user = new User();
         user.setNickname("小八");
         long count = userService.count(user);
@@ -120,7 +116,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void exist(){
+    public void exist() {
         User user = new User();
         user.setNickname("小八");
         boolean b = userService.exists(user);
@@ -128,7 +124,6 @@ public class UserServiceTest {
         boolean b1 = userService.existsById(12);
         System.out.println(b1);
     }
-
 
 
 }

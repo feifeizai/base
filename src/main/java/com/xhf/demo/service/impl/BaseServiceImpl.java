@@ -42,7 +42,7 @@ public class BaseServiceImpl<T, ID extends Serializable> implements BaseService<
     @Override
     @Transactional
     public T save(T t) {
-        return baseRepository.save(t);
+        return baseRepository.saveAndFlush(t);
     }
 
     @Override
@@ -51,39 +51,38 @@ public class BaseServiceImpl<T, ID extends Serializable> implements BaseService<
         return baseRepository.saveAll(iterate);
     }
 
+    @Override
+    @Transactional
+    public T update(T t) {
+        return baseRepository.saveAndFlush(t);
+    }
+
     /**
      * 保存的时候要求忽略为null的更新
      */
     @Override
     @Transactional
-    public T update(T t) {
+    public T updateSelective(T t) {
         //Class所有的属性
         Field[] fields = clazz.getDeclaredFields();
-        String fieldName = null;
         ID id = null;
         for (Field field : fields) {
             //获取对应的注解
             Id annotation = field.getAnnotation(Id.class);
             if (annotation != null) {
                 //如果注解不为空，说明是主键对应的属性
-                fieldName = field.getName();
-                System.out.println("主键字段是fieldName:" + fieldName);
-                id = (ID) getFieldValueByName(fieldName, t);
+                id = (ID) getFieldValueByName(field.getName(), t);
                 break;
             }
         }
         Optional<T> option = findById(id);
-        if (option.isPresent()) {
-            T source = option.get();
-            copyNullProperties(source, t);
-        }
+        option.ifPresent(source -> copyNullProperties(source, t));
         return baseRepository.saveAndFlush(t);
     }
 
     /**
      *  
-     *  * 根据属性名获取属性值 
-     *  * 
+     * 根据属性名获取属性值
      */
     protected Object getFieldValueByName(String fieldName, Object o) {
         try {
@@ -91,8 +90,7 @@ public class BaseServiceImpl<T, ID extends Serializable> implements BaseService<
             //方法getId()
             String getter = "get" + firstLetter + fieldName.substring(1);
             Method method = o.getClass().getMethod(getter, new Class[]{});
-            Object value = method.invoke(o, new Object[]{});
-            return value;
+            return method.invoke(o, new Object[]{});
         } catch (Exception e) {
             return null;
         }
@@ -176,7 +174,7 @@ public class BaseServiceImpl<T, ID extends Serializable> implements BaseService<
     }
 
     @Override
-    public Optional findOne(T t) {
+    public Optional<T> findOne(T t) {
         Example<T> example = Example.of(t);
         return baseRepository.findOne(example);
     }

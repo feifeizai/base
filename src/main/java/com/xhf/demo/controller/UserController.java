@@ -1,5 +1,6 @@
 package com.xhf.demo.controller;
 
+import com.xhf.demo.common.BaseContextHandler;
 import com.xhf.demo.entity.User;
 import com.xhf.demo.service.UserService;
 import io.swagger.annotations.Api;
@@ -27,6 +28,11 @@ public class UserController extends BaseController<User, Integer> {
     @GetMapping("/getUserById")
     public User find11(Integer id) {
         return userService.xxx(id);
+    }
+
+    @GetMapping("/getUserName")
+    public User findName() {
+        return User.builder().username(BaseContextHandler.getUsername()).build();
     }
 
 }

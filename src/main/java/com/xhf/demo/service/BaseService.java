@@ -2,15 +2,13 @@ package com.xhf.demo.service;
 
 import com.xhf.demo.common.PageRequestInfo;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public interface BaseService <T,ID extends Serializable>{
+public interface BaseService<T, ID extends Serializable> {
 
 
     T save(T t);
@@ -19,19 +17,19 @@ public interface BaseService <T,ID extends Serializable>{
 
     T update(T t);
 
+    T updateSelective(T t);
+
     void deleteById(ID id);
 
     void delete(T t);
 
     /**
      * 删除集合中元素对应的记录
-     * @param iterable
      */
     void deleteInBatch(Iterable<T> iterable);
 
     /**
      * 根据id集合删除元素
-     * @param iterable
      */
     void deleteAllByIdIn(Iterable<ID> iterable);
 
@@ -47,15 +45,11 @@ public interface BaseService <T,ID extends Serializable>{
 
     /**
      * 如果找到的不是一个是两个，会报错
-     * @param t
-     * @return
      */
-    Optional findOne(T t);
+    Optional<T> findOne(T t);
 
     /**
      * new Sort(Sort.Direction.ASC,"id");
-     * @param sort
-     * @return
      */
     List<T> findAll(Sort sort);
 
@@ -69,8 +63,6 @@ public interface BaseService <T,ID extends Serializable>{
 
     /**
      * 根据id集合查找结果
-     * @param iterable
-     * @return
      */
     List<T> findAllById(Iterable<ID> iterable);
 

@@ -7,15 +7,14 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
  * @author 谢红飞
- * @Title:
- * @Description:
- * @date 2019-11-25 23:06
+ * date 2019-11-25 23:06
  */
-@ControllerAdvice(annotations = RestController.class)
+@RestControllerAdvice(annotations = RestController.class)
 //@ControllerAdvice(basePackages = "com.xhf.demo.controller")
 public class SpringMvcAdvice implements ResponseBodyAdvice {
 

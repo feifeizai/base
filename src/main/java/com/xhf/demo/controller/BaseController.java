@@ -1,8 +1,8 @@
 package com.xhf.demo.controller;
 
+import com.xhf.demo.common.DataT;
 import com.xhf.demo.common.PageRequestInfo;
 import com.xhf.demo.common.PageResultInfo;
-import com.xhf.demo.common.DataT;
 import com.xhf.demo.service.BaseService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +54,7 @@ public class BaseController<T, ID extends Serializable> {
     @ApiOperation(value = "更新接口")
     @PutMapping
     public DataT<T> update(@RequestBody T t) {
-        T detail = baseService.update(t);
+        T detail = baseService.updateSelective(t);
         return DataT.<T>builder().detail(detail).build();
     }
 

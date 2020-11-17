@@ -12,9 +12,7 @@ import java.util.List;
 
 /**
  * @author 谢红飞
- * @Title:
- * @Description:
- * @date 2020-3-28 19:43
+ * date 2020-3-28 19:43
  */
 @Data
 @ApiModel(description = "分页返回结果")

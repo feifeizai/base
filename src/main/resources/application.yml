@@ -7,6 +7,8 @@ spring:
     hibernate:
       dialect: org.hibernate.dialect.MySQL5Dialect
       ddl-auto: update
+swagger:
+  show: true
 
 mybatis:
   # 指定全局配置文件位置, 文件在resources文件下
@@ -22,7 +24,7 @@ spring:
     username: root
     password: root
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3306/pingan?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/learn?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
     hikari:
       auto-commit: true
@@ -33,7 +35,6 @@ spring:
       maximum-pool-size: 15
       minimum-idle: 5
       pool-name: DatebookHikariCP
-
 
 
 ---
